@@ -1,0 +1,9 @@
+# pack-refs with: peeled fully-peeled sorted 
+849984e25bbb3ebe37c3038bf28ff4826412f69c refs/remotes/origin/BlazorWebApp
+0ec6d9e58ad2ea74d7d5a91468cd5300c77bef70 refs/remotes/origin/FastReportMVCapp
+749b6286db763fe5cd0a275ba65f49c762e7c898 refs/remotes/origin/develop
+4e140d5b68b52e9f05674d12135cc1afb24fcfe1 refs/remotes/origin/firstbranch
+749b6286db763fe5cd0a275ba65f49c762e7c898 refs/remotes/origin/master
+91f8466db182d0558db6cd694eb71931f785b467 refs/remotes/origin/reactapp
+cf1af823fa74c70c82041b00444e416eab094203 refs/remotes/origin/reactfr
+affa01b62f97e2c1fb384a11b5b556e8f185dfe3 refs/remotes/origin/winforms

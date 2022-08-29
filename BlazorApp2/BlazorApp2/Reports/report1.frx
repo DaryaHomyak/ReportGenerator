@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/08/2022 12:58:53" ReportInfo.Modified="08/26/2022 19:22:34" ReportInfo.CreatorVersion="1.0.0.0">
+  <Styles Name="Sand">
+    <Style Name="Title" Font="Arial, 12pt, style=Bold"/>
+    <Style Name="Header" Fill.Color="Moccasin" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Group" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Data" Font="Arial, 10pt"/>
+    <Style Name="Footer" Fill.Color="Moccasin" Font="Arial, 10pt"/>
+    <Style Name="EvenRows" Fill.Color="FloralWhite" Font="Arial, 10pt"/>
+  </Styles>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqF8Es8o4EF3s56nkdP8lAXERE9oIsrcE3dlOUvezqVOdhcK4Rr9do+NzRMlkNk1WnCdy4L8nwtvpm2RRDbIpll6pCtCZoOiO3sdCw71qKO8NFPg95u4uxUwCJoNkFn27nFSYfODc/3D2I85Kr/n56iKEkvcCe0QU43DRu7uhpldYWBThqp6rIrCgwHsl/VQjVTn9y+suoWiUYfUzDAEHRhg==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="select * from [rd].[func_CUTEDailyProdBody]('ru',&#13;&#10;@PlantID,&#13;&#10;@StartTime,&#13;&#10;@FinishTime,&#13;&#10;@LineID&#13;&#10;)">
+        <Column Name="PlantName" DataType="System.String"/>
+        <Column Name="PlantID" DataType="System.Guid"/>
+        <Column Name="LineName" DataType="System.String"/>
+        <Column Name="LineID" DataType="System.Guid"/>
+        <Column Name="StartTimeStamp" DataType="System.DateTime"/>
+        <Column Name="FinishTimeStamp" DataType="System.DateTime"/>
+        <Column Name="IsFact" DataType="System.Int32"/>
+        <Column Name="PlanName" DataType="System.String"/>
+        <Column Name="SapCode" DataType="System.String"/>
+        <Column Name="BatchNumber" DataType="System.String"/>
+        <Column Name="PlanCount" DataType="System.Int32"/>
+        <Column Name="FactCount" DataType="System.Int32"/>
+        <CommandParameter Name="PlantID" DataType="22" Expression="[param_plantid]"/>
+        <CommandParameter Name="StartTime" DataType="22" Expression="[param_starttime]"/>
+        <CommandParameter Name="FinishTime" DataType="22" Expression="[param_finishtime]"/>
+        <CommandParameter Name="LineID" DataType="22" Expression="[param_lineid]"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="param_plantid" DataType="System.String"/>
+    <Parameter Name="param_starttime" DataType="System.DateTime" Expression="ToDateTime(&quot;0001-01-01&quot;)"/>
+    <Parameter Name="param_finishtime" DataType="System.DateTime" Expression="ToDateTime(&quot;2022-12-31&quot;)"/>
+    <Parameter Name="param_lineid" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" Guides="888.3,850.5,963.9,784.35,633.15,595.35,500.85,406.35,321.3,170.1,85.05,0,0,567" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
+      <TextObject Name="Text1" Width="1047.06" Height="37.8" Dock="Fill" Text="Table" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold" Style="Title"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="1047.06" Height="28.35" CanGrow="true">
+      <TextObject Name="Text3" Width="85.05" Height="18.9" Fill.Color="Moccasin" CanGrow="true" Text="PlantName" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text5" Left="85.05" Width="85.05" Height="18.9" Fill.Color="Moccasin" Text="PlantID" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text7" Left="170.1" Width="151.2" Height="18.9" Fill.Color="Moccasin" Text="LineName" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text9" Left="321.3" Width="85.05" Height="18.9" Fill.Color="Moccasin" Text="LineID" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text11" Left="406.35" Width="94.5" Height="18.9" Fill.Color="Moccasin" Text="StartTimeStamp" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text13" Left="500.85" Width="94.5" Height="18.9" Fill.Color="Moccasin" Text="FinishTimeStamp" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text15" Left="595.35" Width="37.8" Height="18.9" Fill.Color="Moccasin" Text="IsFact" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text17" Left="633.15" Width="151.2" Height="18.9" Fill.Color="Moccasin" Text="PlanName" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text19" Left="784.35" Width="66.15" Height="18.9" Fill.Color="Moccasin" Text="SapCode" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text21" Left="850.5" Width="37.8" Height="18.9" Fill.Color="Moccasin" CanGrow="true" Text="BatchNumber" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text23" Left="888.3" Width="75.6" Height="18.9" Fill.Color="Moccasin" Text="PlanCount" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text25" Left="963.9" Width="85.05" Height="18.9" Fill.Color="Moccasin" Text="FactCount" Font="Arial, 10pt, style=Bold" Style="Header"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="74.15" Width="1047.06" Height="18.9" CanGrow="true" EvenStyle="EvenRows" Guides="0" DataSource="Table">
+      <TextObject Name="Text2" Width="85.05" Height="18.9" CanGrow="true" Text="[Table.PlantName]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text4" Left="85.05" Width="85.05" Height="18.9" CanGrow="true" Text="[Table.PlantID]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text6" Left="170.1" Width="151.2" Height="18.9" CanGrow="true" Text="[Table.LineName]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text8" Left="321.3" Width="85.05" Height="18.9" CanGrow="true" Text="[Table.LineID]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text10" Left="406.35" Width="94.5" Height="18.9" CanGrow="true" Text="[Table.StartTimeStamp]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text12" Left="500.85" Width="94.5" Height="18.9" CanGrow="true" Text="[Table.FinishTimeStamp]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text14" Left="595.35" Width="37.8" Height="18.9" Text="[Table.IsFact]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text16" Left="633.15" Width="151.2" Height="18.9" CanGrow="true" Text="[Table.PlanName]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text18" Left="784.35" Width="66.15" Height="18.9" Text="[Table.SapCode]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text20" Left="850.5" Width="37.8" Height="18.9" Text="[Table.BatchNumber]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text22" Left="888.3" Width="75.6" Height="18.9" Text="[Table.PlanCount]" Font="Arial, 10pt" Style="Data"/>
+      <TextObject Name="Text24" Left="963.9" Width="85.05" Height="18.9" Text="[Table.FactCount]" Font="Arial, 10pt" Style="Data"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Printable="false" Top="97.05" Width="1047.06" Height="18.9">
+      <TextObject Name="Text26" Width="1047.06" Height="18.9" Dock="Fill" Fill.Color="Moccasin" Text="[PageN]" HorzAlign="Right" Font="Arial, 10pt" Style="Footer"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

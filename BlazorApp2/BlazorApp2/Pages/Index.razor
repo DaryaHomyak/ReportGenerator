@@ -1,0 +1,151 @@
+﻿@page "/"
+@page "/{ReportName}"
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@inject IPeopleData _db
+
+
+
+<div style="display:flex;flex-direction:column;">
+    <div style="display:flex;flex-direction:row;">
+        <div style="display:flex;flex-direction:column;text-align: center;margin-left:250px;">
+
+            @*дата начала*@
+            <input class="custom-select" style= "margin-top:10px;height:30px;" type="date" @bind="@SelectDate1">
+
+            @*дата окончания*@
+            <input class="custom-select" style= "margin-top:10px;height:30px;" type="date" @bind="@SelectDate2">
+
+        </div>
+        <div style="display:flex;flex-direction:column;text-align: center;margin-left:50px;">
+            @if (@firstReport == "report1.frx")
+            {
+                @*выбор завода*@
+                <select class="custom-select" style="margin-top:10px;height:30px" @onclick=ChangePlant() @bind="@SelectedPlantID">
+
+                    @foreach (var plant in PlantList)
+                    {
+                        <option value="@plant.Id"> @plant.Name </option>
+                    }
+
+                </select>
+                @*выбор линии*@
+                <select class="custom-select" style="margin-top:10px;height:30px" @onclick=ChangeLine() @bind="@SelectedPlantLineID">
+
+                    <option value="00000000-0000-0000-0000-000000000000">Все линии</option>
+                    @foreach (var plantLine in FilteredPlantLineList)
+                    {
+                        <option value="@plantLine.ID"> @plantLine.Name </option>
+                    }
+
+                </select>
+            }
+        </div>
+    </div>
+</div>
+<div style="display:flex;flex-direction:row;">
+    <WebReportContainer WebReport="@UserWebReport" />
+</div>
+
+@code {
+    // список заводов (id - город)
+    List<Plant> PlantList = new List<Plant>() { new Plant ("F92042DC-11BA-453E-BE10-13687EAF57D9", "Саранск"),
+                                                new Plant ("B06BB646-153C-49B9-9785-181AB796C720", "Кемерово"),
+                                                new Plant ("5949E7F4-B65D-4A26-93F1-1827815ACB60", "Самара"),
+                                                new Plant ("AD5C0B4C-0ECE-405E-9570-431C72FA0710", "Ялуторовск"),
+                                                new Plant ("B3D86788-BA06-4F1A-B5A9-5C6F0CF509B8", "Чехов"),
+                                                new Plant ("E650FDE7-C910-4A3E-A179-827AEE7B5ACC", "Красноярск"),
+                                                new Plant ("45E9F6CB-D086-4539-B515-B79BB5FD2DEB", "Тихорецк"),
+                                                new Plant ("01FCDF35-9B26-4DD3-B971-C9BDEE2C03F3", "Липецк"),
+                                                new Plant ("05C63A4B-F118-47D0-9191-D3378FBBFB40", "Шадринск"),
+                                                new Plant ("0E7E0A77-610C-478C-93E6-F812728842B6", "Санкт-Петербург")
+                                              };
+    // Класс завода
+    public class Plant
+    {
+        public Plant(string id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+        public string Id { get; set; }
+        public string Name { get; set; }
+
+    }
+    
+    // Выбранная по умолчанию линия
+    string SelectedPlantLineID { get; set; } = "00000000-0000-0000-0000-000000000000";
+
+    // создание списка линий
+    public List<PersonModel> PlantLineList1;
+
+    // создание списка после передачи параметров
+    List<PersonModel> FilteredPlantLineList = new List<PersonModel>();
+
+    // класс линии
+    public class PlantLine
+    {
+        public PlantLine(string id, string name, string plantId)
+        {
+            Id = id;
+            Name = name;
+            PlantId = plantId;
+        }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string PlantId { get; set; }
+
+    }
+
+
+    // путь до папки Reports
+    private string dir = Path.Combine(
+    Directory.GetCurrentDirectory(),
+    Path.Combine("Reports"));
+
+    [Parameter]
+    public string ReportName { get; set; }
+    
+    // название файла
+    [Parameter]
+    public string firstReport { get; set; } = "report1.frx";
+    
+    // дата конца
+    [Parameter]
+    public DateTime SelectDate1 { get; set; } = Convert.ToDateTime("04-09-2020");
+
+    // дата начала
+    [Parameter]
+    public DateTime SelectDate2 { get; set; } = Convert.ToDateTime("17-08-2022");
+
+    // выбранный завод
+    public string SelectedPlantID { get; set; } = "F92042DC-11BA-453E-BE10-13687EAF57D9";
+
+    // событие при выборе завода
+    public EventCallback ChangePlant()
+    {   
+        UserWebReport.Report.Load(Path.Combine(directory, firstReport));
+        // передача параметра в отчёт
+        UserWebReport.Report.SetParameterValue("param_plantid", SelectedPlantID);
+        // получение всех линий выбранного завода
+        if (PlantLineList1 != null)
+        {
+            FilteredPlantLineList = PlantLineList1.Where(_ => _.Plant_ID == new Guid(SelectedPlantID)).Select(_ => _).ToList();
+        }
+        return default;
+    }
+    // событие при выборе линии
+    public EventCallback ChangeLine()
+    {
+        UserWebReport.Report.Load(Path.Combine(directory, firstReport));
+
+        // передача всехх введенных параметров в отчет 
+        UserWebReport.Report.SetParameterValue("param_lineid", SelectedPlantLineID);
+        UserWebReport.Report.SetParameterValue("param_plantid", SelectedPlantID);
+        UserWebReport.Report.SetParameterValue("param_starttime", SelectDate1);
+        UserWebReport.Report.SetParameterValue("param_finishtime", SelectDate2);
+
+        return default;
+    }
+
+ }
